@@ -12,7 +12,15 @@ def home():
 
 @api_bp.route("/air-quality", methods=["GET"])
 def get_air_quality():
-    """Get paginated air quality data, filtered by query parameters."""
+    """Fetch paginated air quality data with optional filters.
+
+    Optional Query Parameters:
+    - page: Page number (default: 1).
+    - per_page: Number of items per page (default: 10).
+    - name: Filter by the indicator name.
+    - geo_place_name: Filter by geographic location.
+    - time_period: Filter by the time period.
+    """
     try:
         page = request.args.get("page", "1")
         per_page = request.args.get("per_page", "10")

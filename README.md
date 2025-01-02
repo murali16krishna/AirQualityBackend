@@ -142,7 +142,18 @@ The response is a JSON object that includes the requested air quality data.
       "time_period": "2022",
       "start_date": "2022-01-01",
       "data_value": 35.2
-    }
+    },
+    {
+      "unique_id": "67890",
+      "indicator_id": 2,
+      "name": "Ozone",
+      "measure": "micrograms per cubic meter",
+      "geo_place_name": "Brooklyn",
+      "time_period": "2022",
+      "start_date": "2022-01-01",
+      "data_value": 42.7
+    },
+    "..."
   ],
   "total": 100,
   "pages": 10,
@@ -242,7 +253,8 @@ Now the data is populated, and you can start using the available endpoints to re
 
 ### 1. Multi-Source Data Fetching
 - Add support for fetching air quality data from multiple external sources.
-- Normalize and map data fields from different sources to a unified schema before storing in the database.
+- Extend functionality to handle various data formats such as JSON, CSV, XML etc.
+- Normalize and map data fields from different sources and formats to a unified schema before storing them in the database.
 
 ### 2. Database Enhancements
 

@@ -1,3 +1,5 @@
+from sqlalchemy import inspect
+
 from app import db
 from app.models import AirQuality
 import pandas as pd
@@ -42,7 +44,8 @@ class AirQualityService:
         """Apply filters, paginate, and retrieve data."""
         query = AirQuality.query
 
-        query = AirQualityService.apply_filters(query, filters)
+        # query = AirQualityService.apply_filters(query, filters)
+        query = AirQualityService.apply_dynamic_filters(query, filters)
 
         paginated_data = query.paginate(page=page, per_page=per_page, error_out=False)
         return paginated_data
@@ -52,6 +55,8 @@ class AirQualityService:
         """Retrieve distinct geo_place_name values from the database."""
         distinct_geo_place_names = db.session.query(AirQuality.geo_place_name).distinct().order_by(
             AirQuality.geo_place_name).all()
+
+        # distinct_geo_place_names is a list of tuples, so we extract the first element from each tuple
         geo_place_names = [name[0] for name in distinct_geo_place_names]
         return geo_place_names
 
@@ -66,5 +71,16 @@ class AirQualityService:
 
         if "time_period" in filters and filters["time_period"]:
             query = query.filter(AirQuality.time_period.like(f"%{filters['time_period']}%"))
+
+        return query
+
+    @staticmethod
+    def apply_dynamic_filters(query, filters):
+        """Apply filters dynamically using model metadata."""
+        model_columns = {column.key: column for column in inspect(AirQuality).columns}
+
+        for key, value in filters.items():
+            if key in model_columns and value:
+                query = query.filter(model_columns[key].like(f"%{value}%"))
 
         return query
