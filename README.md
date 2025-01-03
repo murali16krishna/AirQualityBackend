@@ -21,12 +21,12 @@ The collected data provides air quality measurements in various neighborhoods of
 This project pulls air quality data from the **New York City Air Quality Surveillance Dataset** provided by the **Department of Health and Mental Hygiene (DOHMH)**. The dataset contains detailed information about air pollution levels across different neighborhoods, over various time periods.
 
 Dataset includes key attributes like:
-- Unique ID for each record
-- Air quality Indicator
-- Measurement of Indicator
-- Geographic location (neighborhood)
-- Time period of data collection
-- Actual air quality measurement values
+- **id**: A unique identifier for the record.  
+- **name**: The air quality indicator, such as Ozone or Nitrogen.  
+- **geo_place_name**: The neighborhood in New York City (e.g., Manhattan, Brooklyn).  
+- **time_period**: The year/season when the measurement was taken (e.g., 2022, Summer 2018).  
+- **data_value**: The actual measurement value for the indicator (e.g., 34.5, 6.2).
+- **measure**: The units of measurement (e.g., ppb, mcg/m³).
 
 For more details:
 You can visit the NYC Open Data portal: [NYC Open Data - Air Quality](https://data.cityofnewyork.us/Environment/Air-Quality/c3uy-2p5r/about_data)
